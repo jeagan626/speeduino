@@ -3,7 +3,7 @@ Piggyback mode replaces the primary fuel and spark tables,
 and uses the signals taken from the factory ecu to determine the fuel and spark values
 fuel is simple as the factory pulsewidth sent to injectors is measured then back caclulated to determine a ve value to use 
 instead of the ve value stored in the primary table. The AFR can be measured by a lambda sensor,
-but the default value should be to avoid incorperate AFR. In theroy this would also let users reverse engineer the factory VE table
+but the default value should be to avoid incorperate AFR or use lambda 1 for all piggyback areas. In theroy this would also let users reverse engineer the factory VE table
 The utility of the piggyback mode is the use of the secondary tables and corrections.
 This allows the user to modify or completely override the factory ecu behavior under boost pressure ethonol content ect.
 */
@@ -21,8 +21,14 @@ void piggybackInjPulse()
   }
   else
   {
-    flexStartTime = micros(); //Start pulse width measurement.
+    injPulseStartTime = micros(); //Start pulse width measurement.
   }
+}
+
+
+void piggybackIgnitionPulse()
+{
+  piggybackIgnitionAngle = crankAngle + fastTimeToAngle( (micros() - lastCrankAngleCalc) ); 
 }
 // determine the factory fuel injection pulse width 
 //(perhaps it is best to sample the last cylinder in the firing order and base calculations on that?)

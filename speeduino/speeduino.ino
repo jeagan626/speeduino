@@ -437,6 +437,15 @@ void loop()
     currentStatus.advance1 = getAdvance1();
     currentStatus.advance = currentStatus.advance1; //Set the final advance value to be advance 1 as a default. This may be changed in the section below
 
+    /* if(piggyBackMode == true)
+    {
+      // use the fuel and advance values from the master ecu instead of the primary tables
+      currentStatus.VE1 = piggybackVE;
+      currentStatus.VE = currentStatus.VE1;
+      currentStatus.advance1 = piggybackIgnitionAngle;
+      currentStatus.advance = currentStatus.advance1;
+    }
+    */
     calculateSecondaryFuel();
     calculateSecondarySpark();
 
